@@ -73,7 +73,7 @@ Vagrant::Config.run do |config|
     
     #chef.json={
     #  "dotnetframework"=>{
-    #    "url" => "file://c:/vagrant/dotNetFx40_Full_x86_x64.exe"
+    #    "url" => "c:/vagrant/dotNetFx40_Full_x86_x64.exe"
     #  }
     #}  
   end

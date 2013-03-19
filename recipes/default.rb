@@ -20,35 +20,39 @@
 
 download_url   = node['dotnetframework']['url']
 setup_exe      = ::File.basename(download_url)
-setup_exe_path = File.join(Dir.tmpdir(), setup_exe)
-setup_log_path = "#{setup_exe_path}.html"
+is_remote_file = !(download_url =~ /^http/).nil?
 
-base_uninstall_reg_key = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\"
-package_name   = "Microsoft .NET Framework 4 Extended"
-uninstall_reg_key = base_uninstall_reg_key + package_name
+if is_remote_file then
+  setup_exe_path = File.join(Dir.tmpdir(), setup_exe)
+else
+  setup_exe_path = download_url if !is_remote_file
+end
+
+setup_log_path = "#{setup_exe_path}.html"
+base_reg_key = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\"
 
 if !(setup_exe =~ /^dotNetFx45/).nil? then
   Chef::Log.debug(".NET 4.5 framework specified")
-  uninstall_reg_key = base_uninstall_reg_key + "{1AD147D0-BE0E-3D6C-AC11-64F6DC4163F1}"
   package_name   = "Microsoft .NET Framework 4.5"
+  uninstall_reg_key = base_reg_key + "{1AD147D0-BE0E-3D6C-AC11-64F6DC4163F1}"
 else
   Chef::Log.debug(".NET 4.0 framework specified")
+  package_name   = "Microsoft .NET Framework 4 Extended"
+  uninstall_reg_key = base_reg_key + package_name
 end
-
-#TODO: Support local install from c:\\vagrant
 
 dotnet_is_installed = registry_key_exists?(uninstall_reg_key)
 
-windows_reboot 10 do
-  reason '.NET framework requires a reboot'
-  action :nothing
-end
+#windows_reboot 10 do
+#  reason '.NET framework requires a reboot'
+#  action :nothing
+#end
 
 remote_file setup_exe do
   source download_url
   path setup_exe_path
   backup false
-  not_if { dotnet_is_installed }
+  only_if { !dotnet_is_installed && is_remote_file }
 end
 
 windows_package package_name do
@@ -57,5 +61,4 @@ windows_package package_name do
   options "/q /norestart /log \"#{setup_log_path}\""
   action :install
   not_if { dotnet_is_installed }
-  
 end
