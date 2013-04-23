@@ -29,15 +29,15 @@ else
 end
 
 setup_log_path = "#{setup_exe_path}.html"
-base_reg_key = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\"
+base_reg_key = 'HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\'
 
 if !(setup_exe =~ /^dotNetFx45/).nil? then
-  Chef::Log.debug(".NET 4.5 framework specified")
-  package_name   = "Microsoft .NET Framework 4.5"
-  uninstall_reg_key = base_reg_key + "{1AD147D0-BE0E-3D6C-AC11-64F6DC4163F1}"
+  Chef::Log.debug('.NET 4.5 framework specified')
+  package_name   = 'Microsoft .NET Framework 4.5'
+  uninstall_reg_key = base_reg_key + '{1AD147D0-BE0E-3D6C-AC11-64F6DC4163F1}'
 else
-  Chef::Log.debug(".NET 4.0 framework specified")
-  package_name   = "Microsoft .NET Framework 4 Extended"
+  Chef::Log.debug('.NET 4.0 framework specified')
+  package_name   = 'Microsoft .NET Framework 4 Extended'
   uninstall_reg_key = base_reg_key + package_name
 end
 
