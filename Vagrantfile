@@ -22,6 +22,5 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "chef_handler"
     chef.add_recipe "minitest-handler"
     chef.add_recipe "dotnetframework"
-    chef.add_recipe "windows::reboot_handler"
   end
 end
