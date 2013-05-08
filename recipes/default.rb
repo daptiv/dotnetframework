@@ -43,10 +43,10 @@ end
 
 dotnet_is_installed = registry_key_exists?(uninstall_reg_key)
 
-#windows_reboot 10 do
-#  reason '.NET framework requires a reboot'
-#  action :nothing
-#end
+windows_reboot 10 do
+  reason 'dotnetframework requires a reboot to complete'
+  action :nothing
+end
 
 remote_file setup_exe do
   source download_url
@@ -60,5 +60,6 @@ windows_package package_name do
   installer_type :custom
   options "/q /norestart /log \"#{setup_log_path}\""
   action :install
+  notifies :request, 'windows_reboot[10]'
   not_if { dotnet_is_installed }
 end
