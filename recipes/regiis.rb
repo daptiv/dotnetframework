@@ -18,24 +18,26 @@
 # limitations under the License.
 #
 
+#C:\Windows\System32\inetsrv>appcmd list config /section:isapiCgiRestriction
+#<system.webServer>
+#  <security>
+#    <isapiCgiRestriction>
+#      <add path="%windir%\Microsoft.NET\Framework64\v2.0.50727\aspnet_isapi.dll" allowed="true" groupId="ASP.NET v2.0.50727" />
+#      <add path="%windir%\Microsoft.NET\Framework\v2.0.50727\aspnet_isapi.dll" allowed="true" groupId="ASP.NET v2.0.50727" />
+#    </isapiCgiRestriction>
+#  </security>
+#</system.webServer>
 
-#C:\Windows\Microsoft.NET\Framework64\v4.0.30319>aspnet_regiis -lv
-#2.0.50727.0             C:\Windows\Microsoft.NET\Framework64\v2.0.50727\aspnet_isapi.dll
-#4.0.30319.0             C:\Windows\Microsoft.NET\Framework64\v4.0.30319\aspnet_isapi.dll
-#4.0.30319.0             C:\Windows\Microsoft.NET\Framework\v4.0.30319\aspnet_isapi.dll
-
-
-#HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\ASP.NET\4.0.30319.0
-# If that key is present, then .Net 4 has been installed and is registered in IIS.
 
 dotnet4dir = File.join(ENV['WINDIR'], 'Microsoft.Net\\Framework64\\v4.0.30319')
 aspnet_regiis_cmd = File.join(dotnet4dir, 'aspnet_regiis.exe')
+appcmd = File.join(ENV['WINDIR'], 'system32\\inetsrv\\appcmd.exe')
 
 execute "aspnet_regiis" do
-  command "#{aspnet_regiis_cmd} -i -enable"
+  command "#{aspnet_regiis_cmd} -i"
   action :run
   not_if do
-    cmd = Mixlib::ShellOut.new("#{aspnet_regiis_cmd} -lv")
+    cmd = Mixlib::ShellOut.new("#{appcmd} list config /section:isapiCgiRestriction")
     aspnet_isapis = cmd.run_command
     Chef::Log.debug(aspnet_isapis.stdout)
     aspnet_isapis.stdout.include?('Framework64\\v4.0.30319\\aspnet_isapi.dll')
