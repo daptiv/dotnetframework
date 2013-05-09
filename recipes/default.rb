@@ -62,4 +62,3 @@ windows_package package_name do
   notifies :request, 'windows_reboot[60]'
   not_if { dotnet_is_installed }
 end
-
