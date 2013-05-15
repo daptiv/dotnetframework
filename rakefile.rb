@@ -3,6 +3,10 @@ require 'foodcritic'
 require 'rbconfig'
 require 'chef/config'
 
+require_relative '../../chef-repo/build/rake_helper.rb'
+require_relative '../../chef-repo/build/vagrant_helper.rb'
+require_relative '../../chef-repo/build/vboxmanage_helper.rb'
+
 # Use knife.rb and conventions to locate (vendored) cookbooks and data bags.
 is_windows = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
 
@@ -33,8 +37,8 @@ task :foodcritic do
   review  = ::FoodCritic::Linter.new.check([cookbook_path], options)
   puts review
   if review.failed?
-    STDERR.puts ('Default Foodcritic Failed!!!!!')
-    STDERR.puts (review)
+    STDERR.puts('Default Foodcritic Failed!!!!!')
+    STDERR.puts(review)
     raise(SystemExit, 1)
   else
     puts 'Default Foodcritic Passed!'
@@ -47,7 +51,7 @@ task :tailor do
   tailor_opts = []
   failure = Tailor::CLI.run(tailor_opts)
   if failure
-    STDERR.puts ('Tailor Failed!!!!!')
+    STDERR.puts('Tailor Failed!!!!!')
     raise(SystemExit, 1)
   else
     puts 'Tailor Passed!'
@@ -69,15 +73,15 @@ task :foodcritic_extended do
       include_rules }
     review        = ::FoodCritic::Linter.new.check([cookbook_path], options)
     if review.failed?
-      STDERR.puts ('Extended Foodcritic Failed!!!!!')
-      STDERR.puts (review)
+      STDERR.puts('Extended Foodcritic Failed!!!!!')
+      STDERR.puts(review)
       raise(SystemExit, 1)
     else
       puts 'Extended Foodcritic Passed!'
     end
   else
     STDERR.puts "Extended rules directory was not found at: #{extended_rules_dir}"
-    STDERR.puts ('Extended Foodcritic did not complete!!!!!')
+    STDERR.puts('Extended Foodcritic did not complete!!!!!')
     raise(SystemExit, 1)
   end
 
