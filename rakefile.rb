@@ -86,3 +86,28 @@ task :foodcritic_extended do
   end
 
 end
+
+desc 'Run vagrant'
+task :vagrant do
+
+  VagrantHelper.vagrant_prereq
+
+  begin
+    VagrantHelper.vagrant_stop
+  end
+
+  begin
+    VBoxManageHelper.vboxmanage_cleanup_target_vms('dotnetframework')
+  end
+
+  begin
+    VagrantHelper.vagrant_file_overwrite
+    VagrantHelper.vagrant_start
+  ensure
+    VagrantHelper.vagrant_stop
+    VagrantHelper.vagrant_file_restore
+    VBoxManageHelper.vboxmanage_cleanup_target_vms('dotnetframework')
+    puts 'DONE'
+  end
+
+end
