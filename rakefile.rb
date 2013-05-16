@@ -3,9 +3,9 @@ require 'foodcritic'
 require 'rbconfig'
 require 'chef/config'
 
-require_relative '../../chef-repo/build/rake_helper.rb'
-require_relative '../../chef-repo/build/vagrant_helper.rb'
-require_relative '../../chef-repo/build/vboxmanage_helper.rb'
+require_relative '../../build/rake_helper.rb'
+require_relative '../../build/vagrant_helper.rb'
+require_relative '../../build/vboxmanage_helper.rb'
 
 # Use knife.rb and conventions to locate (vendored) cookbooks and data bags.
 is_windows = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
