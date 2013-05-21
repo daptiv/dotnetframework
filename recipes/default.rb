@@ -22,6 +22,12 @@ download_url   = node['dotnetframework']['url']
 setup_exe      = ::File.basename(download_url)
 setup_log_path = "c:\\#{setup_exe}.html"
 
+if node['dotnetframework']['allow_installer_reboot']
+  installer_cmd  = "/q /log \"#{setup_log_path}\""
+else
+  installer_cmd  = "/q /norestart /log \"#{setup_log_path}\""
+end
+
 dotnet4dir = File.join(ENV['WINDIR'], 'Microsoft.Net\\Framework64\\v4.0.30319')
 node.set['dotnetframework']['dir'] = dotnet4dir
 
@@ -45,7 +51,7 @@ setup_exe_local = cached_file(download_url)
 windows_package package_name do
   source setup_exe_local
   installer_type :custom
-  options "/q /norestart /log \"#{setup_log_path}\""
+  options installer_cmd
   action :install
   notifies :request, 'windows_reboot[60]', :immediately
   not_if { dotnet_is_installed }
