@@ -20,14 +20,7 @@
 
 download_url   = node['dotnetframework']['url']
 setup_exe      = ::File.basename(download_url)
-is_remote_file = !(download_url =~ /^http/).nil?
-
-if is_remote_file then
-  setup_exe_path = File.join(Dir.tmpdir(), setup_exe)
-else
-  setup_exe_path = download_url if !is_remote_file
-end
-setup_log_path = "#{setup_exe_path}.html"
+setup_log_path = "c:\\#{setup_exe}.html"
 
 dotnet4dir = File.join(ENV['WINDIR'], 'Microsoft.Net\\Framework64\\v4.0.30319')
 node.set['dotnetframework']['dir'] = dotnet4dir
@@ -47,18 +40,13 @@ windows_reboot 60 do
   action :nothing
 end
 
-remote_file setup_exe do
-  source download_url
-  path setup_exe_path
-  backup false
-  only_if { !dotnet_is_installed && is_remote_file }
-end
+setup_exe_local = cached_file(download_url)
 
 windows_package package_name do
-  source setup_exe_path
+  source setup_exe_local
   installer_type :custom
   options "/q /norestart /log \"#{setup_log_path}\""
   action :install
-  notifies :request, 'windows_reboot[60]'
+  notifies :request, 'windows_reboot[60]', :immediately
   not_if { dotnet_is_installed }
 end
