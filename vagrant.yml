@@ -1,1 +1,2 @@
 vagrant_box: vagrant-windows2008r2
+vagrant_guest_os: windows
