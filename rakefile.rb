@@ -16,7 +16,7 @@ else
   home_dir = ENV['HOME']
 end
 
-knife_file = File.join(home_dir, 'chef-repo', '.chef', 'knife.rb')
+knife_file = File.join(home_dir, '.chef', 'knife.rb')
 Chef::Config.from_file(knife_file)
 knife_cookbook_path = Chef::Config[:cookbook_path]
 chef_repo_path = File.join(knife_cookbook_path, '..')
