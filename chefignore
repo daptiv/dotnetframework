@@ -98,3 +98,4 @@ Vagrantfile
 # daptiv #
 ##########
 vagrant.yaml
+.tailor
