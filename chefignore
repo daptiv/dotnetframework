@@ -94,3 +94,8 @@ Vagrantfile
 # Travis #
 ##########
 .travis.yml
+
+# daptiv #
+##########
+vagrant.yaml
+.tailor

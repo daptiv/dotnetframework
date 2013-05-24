@@ -3,6 +3,10 @@ require 'foodcritic'
 require 'rbconfig'
 require 'chef/config'
 
+require_relative '../../build/rake_helper.rb'
+require_relative '../../build/vagrant_helper.rb'
+require_relative '../../build/vboxmanage_helper.rb'
+
 # Use knife.rb and conventions to locate (vendored) cookbooks and data bags.
 is_windows = (RbConfig::CONFIG['host_os'] =~ /mswin|mingw|cygwin/)
 
@@ -12,7 +16,7 @@ else
   home_dir = ENV['HOME']
 end
 
-knife_file = File.join(home_dir, 'chef-repo', '.chef', 'knife.rb')
+knife_file = File.join(home_dir, '.chef', 'knife.rb')
 Chef::Config.from_file(knife_file)
 knife_cookbook_path = Chef::Config[:cookbook_path]
 chef_repo_path = File.join(knife_cookbook_path, '..')
@@ -33,8 +37,8 @@ task :foodcritic do
   review  = ::FoodCritic::Linter.new.check([cookbook_path], options)
   puts review
   if review.failed?
-    STDERR.puts ('Default Foodcritic Failed!!!!!')
-    STDERR.puts (review)
+    STDERR.puts('Default Foodcritic Failed!!!!!')
+    STDERR.puts(review)
     raise(SystemExit, 1)
   else
     puts 'Default Foodcritic Passed!'
@@ -47,7 +51,7 @@ task :tailor do
   tailor_opts = []
   failure = Tailor::CLI.run(tailor_opts)
   if failure
-    STDERR.puts ('Tailor Failed!!!!!')
+    STDERR.puts('Tailor Failed!!!!!')
     raise(SystemExit, 1)
   else
     puts 'Tailor Passed!'
@@ -69,16 +73,41 @@ task :foodcritic_extended do
       include_rules }
     review        = ::FoodCritic::Linter.new.check([cookbook_path], options)
     if review.failed?
-      STDERR.puts ('Extended Foodcritic Failed!!!!!')
-      STDERR.puts (review)
+      STDERR.puts('Extended Foodcritic Failed!!!!!')
+      STDERR.puts(review)
       raise(SystemExit, 1)
     else
       puts 'Extended Foodcritic Passed!'
     end
   else
     STDERR.puts "Extended rules directory was not found at: #{extended_rules_dir}"
-    STDERR.puts ('Extended Foodcritic did not complete!!!!!')
+    STDERR.puts('Extended Foodcritic did not complete!!!!!')
     raise(SystemExit, 1)
+  end
+
+end
+
+desc 'Run vagrant'
+task :vagrant do
+
+  VagrantHelper.vagrant_prereq
+
+  begin
+    VagrantHelper.vagrant_stop
+  end
+
+  begin
+    VBoxManageHelper.vboxmanage_cleanup_target_vms('dotnetframework')
+  end
+
+  begin
+    VagrantHelper.vagrant_file_overwrite
+    VagrantHelper.vagrant_start
+  ensure
+    VagrantHelper.vagrant_stop
+    VagrantHelper.vagrant_file_restore
+    VBoxManageHelper.vboxmanage_cleanup_target_vms('dotnetframework')
+    puts 'DONE'
   end
 
 end
