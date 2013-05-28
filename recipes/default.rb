@@ -18,12 +18,13 @@
 # limitations under the License.
 #
 
-setup_exe      = ::File.basename(download_url)
-setup_log_path = win_friendly_path(File.join(Dir.tmp_dir(), "#{setup_exe}.html"))
 version        = node['dotnetframework']['version']
 package_name   = node['dotnetframework'][version]['package_name']
 url            = node['dotnetframework'][version]['url']
 checksum       = node['dotnetframework'][version]['checksum']
+
+setup_exe      = ::File.basename(url)
+setup_log_path = win_friendly_path(File.join(Dir.tmpdir(), "#{setup_exe}.html"))
 installer_cmd  = "/q /norestart /log \"#{setup_log_path}\""
 
 dotnet4dir = File.join(ENV['WINDIR'], 'Microsoft.Net\\Framework64\\v4.0.30319')
@@ -41,5 +42,4 @@ windows_package package_name do
   options installer_cmd
   action :install
   notifies :request, 'windows_reboot[60]', :immediately
-  not_if { dotnet_is_installed }
 end
