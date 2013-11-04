@@ -9,6 +9,10 @@ Vagrant.configure("2") do |config|
 
   config.vm.box = "vagrant-windows2008r2"
   config.vm.box_url = "http://vmit07.hq.daptiv.com/vagrant/boxes/vagrant-windows2008r2.box"
+  config.vm.provider :vmware_fusion do |v, override|
+    override.vm.box = "vagrant-vmware-windows2008r2sp1"
+    override.vm.box_url = "http://vmit07.hq.daptiv.com/vagrant/boxes/vagrant-vmware-windows2008r2sp1.box"
+  end
   config.vm.guest = :windows
 
   config.vm.network :forwarded_port, guest: 3389, host: 3389
