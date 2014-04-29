@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
     vsphere.resource_pool_name = ENV['vpshere_resource_pool_name']
     vsphere.template_name = 'Templates/windows-2008r2_chef-11.10.4'
     vsphere.user = ENV['vpshere_user']
-    vsphere.password = ENV['vsphere_pass']
+    vsphere.password = ENV['vsphere_password']
   end
 
   config.vm.box = "vagrant-windows2008r2"
@@ -31,5 +31,5 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "minitest-handler"
     chef.add_recipe "dotnetframework"
   end
-  
+
 end
