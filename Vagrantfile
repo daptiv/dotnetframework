@@ -8,7 +8,7 @@ Vagrant.configure("2") do |config|
     vsphere.compute_resource_name = ENV['vpshere_compute_resource_name']
     vsphere.resource_pool_name = ENV['vpshere_resource_pool_name']
     vsphere.template_name = 'Templates/windows-2008r2_chef-11.10.4'
-    vsphere.user = ENV['vpshere_user']
+    vsphere.user = ENV['vsphere_user']
     vsphere.password = ENV['vsphere_password']
   end
 
