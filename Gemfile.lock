@@ -55,7 +55,7 @@ GEM
       multi_json (>= 1.3.0)
     ci_reporter (1.9.0)
       builder (>= 2.1.2)
-    daptiv-chef-ci (0.0.6)
+    daptiv-chef-ci (0.0.13)
       log4r (~> 1.1.10)
       mixlib-shellout (~> 1.2.0)
     daptiv-foodcritic-rules (0.0.1)
@@ -195,11 +195,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  berkshelf
+  berkshelf (~> 2.0)
   chef (~> 11.4.0)
-  daptiv-chef-ci (>= 0.0.6)
+  daptiv-chef-ci (~> 0.0.13)
   daptiv-foodcritic-rules
-  foodcritic (>= 3.0.0)
+  foodcritic (~> 3.0.0)
   minitest-chef-handler
   rake
-  tailor
+  tailor (~> 1.3.1)
