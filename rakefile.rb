@@ -2,6 +2,8 @@ require 'tailor/rake_task'
 require 'foodcritic'
 require 'daptiv-chef-ci/vagrant_task'
 
+@provider = (ENV['PROVIDER'] || :virtualbox).to_sym
+
 task :lint => [:version, :tailor, :foodcritic]
 task :default => [:lint]
 
@@ -16,4 +18,7 @@ FoodCritic::Rake::LintTask.new do |t|
 end
 
 Tailor::RakeTask.new
-Vagrant::RakeTask.new
+
+Vagrant::RakeTask.new :vagrant, 'Run Vagrant with the specifed provider' do |t|
+  t.provider = @provider
+end
