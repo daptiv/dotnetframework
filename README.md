@@ -1,11 +1,11 @@
 # dotnetframework cookbook
 
-Installs and configures the .NET framework 4 or 4.5 runtime
+Installs and configures the .NET framework 4, 4.5, 4.5.1, or 4.5.2 runtime
 
 # Requirements
 
-Tested on Windows Server 2008 R2
-May work on Windows 7 or 8
+Tested on Windows Server 2008 R2, should work on versions of Windows supported
+by the associated .NET installer.
 
 # Usage
 
@@ -16,14 +16,14 @@ Include the default recipe in your run list.
 default
 -------
 
-* `node['dotnetframework']['version']` - defaults to '4.5' 
+* `node['dotnetframework']['version']` - defaults to '4.5.2' Acceptable values: '4.0', '4.5', '4.5.1', '4.5.2'.
 
 # Recipes
 
 default
 -------
 
-Installs the .NET Framework (4 or 4.5)
+Installs the .NET Framework
 
 # Author
 
