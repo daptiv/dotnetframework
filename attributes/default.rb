@@ -18,6 +18,9 @@
 # limitations under the License.
 #
 
+require 'chef/win32/version'
+windows_version = Chef::ReservedNames::Win32::Version.new
+
 # Override to install different .NET versions
 # 4.0, 4.5, 4.5.1, 4.5.2, 4.6
 default['dotnetframework']['version'] = '4.5.2'
@@ -41,7 +44,11 @@ default['dotnetframework']['4.5']['url'] = 'http://download.microsoft.com/downlo
 
 # .NET 4.5.1
 default['dotnetframework']['4.5.1']['package_name'] = 'Microsoft .NET Framework 4.5.1'
-default['dotnetframework']['4.5.1']['version'] = '4.5.50938'
+if windows_version.windows_server_2012_r2? || windows_version.windows_8_1?
+  default['dotnetframework']['4.5.1']['version'] = '4.5.51641'
+else
+  default['dotnetframework']['4.5.1']['version'] = '4.5.50938'
+end
 default['dotnetframework']['4.5.1']['checksum'] =
   '5ded8628ce233a5afa8e0efc19ad34690f05e9bb492f2ed0413508546af890fe'
 default['dotnetframework']['4.5.1']['url'] = 'http://download.microsoft.com/download/1/6/7/' +
@@ -49,7 +56,11 @@ default['dotnetframework']['4.5.1']['url'] = 'http://download.microsoft.com/down
 
 # .NET 4.5.2
 default['dotnetframework']['4.5.2']['package_name'] = 'Microsoft .NET Framework 4.5.2'
-default['dotnetframework']['4.5.2']['version'] = '4.5.51209'
+if windows_version.windows_server_2012_r2? || windows_version.windows_8_1?
+  default['dotnetframework']['4.5.2']['version'] = '4.5.51650'
+else
+  default['dotnetframework']['4.5.2']['version'] = '4.5.51209'
+end
 default['dotnetframework']['4.5.2']['checksum'] =
   '6c2c589132e830a185c5f40f82042bee3022e721a216680bd9b3995ba86f3781'
 default['dotnetframework']['4.5.2']['url'] = 'http://download.microsoft.com/download/E/2/1/' +

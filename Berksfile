@@ -1,4 +1,5 @@
-chef_api :config
+source "http://berkshelfapi.daptiv.com"
 
 metadata
-cookbook 'minitest-handler', '~> 1.3.1'
+cookbook 'windows', git: 'git://github.com/opscode-cookbooks/windows.git'
+cookbook 'minitest-handler', git: 'git://github.com/btm/minitest-handler-cookbook'

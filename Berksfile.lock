@@ -1,16 +1,19 @@
-{
-  "sources": {
-    "dotnetframework": {
-      "path": "."
-    },
-    "minitest-handler": {
-      "locked_version": "1.3.4"
-    },
-    "windows": {
-      "locked_version": "1.31.2"
-    },
-    "chef_handler": {
-      "locked_version": "1.1.6"
-    }
-  }
-}
+DEPENDENCIES
+  dotnetframework
+    path: .
+    metadata: true
+  minitest-handler
+    git: git://github.com/btm/minitest-handler-cookbook
+    revision: 875b1237dea2b968dabf9082f1bbee35f23d2c24
+  windows
+    git: git://github.com/opscode-cookbooks/windows.git
+    revision: efa6668283ca74c6f29644afe01edb2759d9db49
+
+GRAPH
+  chef_handler (1.1.9)
+  dotnetframework (0.1.0)
+    windows (>= 1.2.6)
+  minitest-handler (1.4.1)
+    chef_handler (>= 0.0.0)
+  windows (1.38.1)
+    chef_handler (>= 0.0.0)
