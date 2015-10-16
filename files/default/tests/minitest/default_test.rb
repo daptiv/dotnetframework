@@ -16,7 +16,7 @@ class TestDotNet4Install < MiniTest::Chef::TestCase
     major_version = node['dotnetframework']['version']
     path = 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full'
     Win32::Registry::HKEY_LOCAL_MACHINE.open(path) do |reg|
-      assert reg['Version'] == node['dotnetframework'][major_version]['version']
+      assert reg['Version'] == node['dotnetframework'][major_version]['version'], reg['Version']
     end
   end
 end

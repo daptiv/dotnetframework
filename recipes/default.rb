@@ -41,5 +41,6 @@ windows_package package_name do
   installer_type :custom
   options installer_cmd
   action :install
+  success_codes [0, 3010]
   notifies :request, 'windows_reboot[60]', :immediately
 end

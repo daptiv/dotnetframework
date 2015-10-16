@@ -1,4 +1,4 @@
-chef_api :config
+source "http://berkshelfapi.daptiv.com"
 
 metadata
-cookbook 'minitest-handler', '~> 1.3.1'
+cookbook 'minitest-handler'
