@@ -1,10 +1,8 @@
 require 'tailor/rake_task'
 require 'foodcritic'
-require 'daptiv-chef-ci/vagrant_task'
+require 'rspec/core/rake_task'
 
-@provider = (ENV['PROVIDER'] || :virtualbox).to_sym
-
-task :lint => [:version, :tailor, :foodcritic]
+task :lint => [:version, :tailor, :foodcritic, :spec]
 task :default => [:lint]
 
 task :version do
@@ -19,6 +17,8 @@ end
 
 Tailor::RakeTask.new
 
-Vagrant::RakeTask.new :vagrant, 'Run Vagrant with the specifed provider' do |t|
-  t.provider = @provider
+RSpec::Core::RakeTask.new do |task|
+  task.pattern = 'spec/**/*_spec.rb'
+  task.rspec_opts = ['--color', '-f documentation']
+  task.rspec_opts << '-tunit'
 end

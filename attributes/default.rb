@@ -18,8 +18,14 @@
 # limitations under the License.
 #
 
-require 'chef/win32/version'
-windows_version = Chef::ReservedNames::Win32::Version.new
+# Use a rescue because ChefSpec fakes the platform to Windows
+begin
+  require 'chef/win32/version'
+  windows_version = Chef::ReservedNames::Win32::Version.new
+  is_2012r2_or_8_1 = windows_version.windows_server_2012_r2? || windows_version.windows_8_1?
+rescue LoadError
+  is_2012r2_or_8_1 = true
+end
 
 # Override to install different .NET versions
 # 4.0, 4.5, 4.5.1, 4.5.2, 4.6
@@ -44,7 +50,7 @@ default['dotnetframework']['4.5']['url'] = 'http://download.microsoft.com/downlo
 
 # .NET 4.5.1
 default['dotnetframework']['4.5.1']['package_name'] = 'Microsoft .NET Framework 4.5.1'
-if windows_version.windows_server_2012_r2? || windows_version.windows_8_1?
+if is_2012r2_or_8_1
   default['dotnetframework']['4.5.1']['version'] = '4.5.51641'
 else
   default['dotnetframework']['4.5.1']['version'] = '4.5.50938'
@@ -56,7 +62,7 @@ default['dotnetframework']['4.5.1']['url'] = 'http://download.microsoft.com/down
 
 # .NET 4.5.2
 default['dotnetframework']['4.5.2']['package_name'] = 'Microsoft .NET Framework 4.5.2'
-if windows_version.windows_server_2012_r2? || windows_version.windows_8_1?
+if is_2012r2_or_8_1
   default['dotnetframework']['4.5.2']['version'] = '4.5.51650'
 else
   default['dotnetframework']['4.5.2']['version'] = '4.5.51209'
