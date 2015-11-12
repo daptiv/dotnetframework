@@ -1,8 +1,8 @@
 # CHANGELOG for dotnetframework
 
 This file is used to list changes made in each version of dotnetframework.
-## 0.1.0:
-Initial version.
+## 1.0.0:
+Initial version released on Supermarket.
 - - - 
 Check the [Markdown Syntax Guide](http://daringfireball.net/projects/markdown/syntax) for help with Markdown.
 
