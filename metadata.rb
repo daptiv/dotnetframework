@@ -1,6 +1,6 @@
 name             'dotnetframework'
 maintainer       'Daptiv Solutions, LLC'
-maintainer_email 'sneal@daptiv.com'
+maintainer_email 'sneal@sneal.net'
 license          'All rights reserved'
 description      'Installs/Configures .NET Framework'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
