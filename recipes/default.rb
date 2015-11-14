@@ -19,6 +19,7 @@
 #
 
 version        = node['dotnetframework']['version']
+reg_version    = node['dotnetframework'][version]['version']
 package_name   = node['dotnetframework'][version]['package_name']
 url            = node['dotnetframework'][version]['url']
 checksum       = node['dotnetframework'][version]['checksum']
@@ -44,10 +45,10 @@ windows_package package_name do
   success_codes [0, 3010]
   not_if {
     registry_value_exists?(
-      'HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full', 
-      { :name => 'Version', :type => :string, :value => node['dotnetframework'][version]['version'] },
+      'HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full',
+      { :name => 'Version', :type => :string, :value => reg_version },
       :machine
     )
-  }  
+  }
   notifies :request, 'windows_reboot[60]', :immediately
 end
