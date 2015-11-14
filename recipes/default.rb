@@ -42,5 +42,12 @@ windows_package package_name do
   options installer_cmd
   action :install
   success_codes [0, 3010]
+  not_if {
+    registry_value_exists?(
+      'HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full', 
+      { :name => 'Version', :type => :string, :value => node['dotnetframework'][version]['version'] },
+      :machine
+    )
+  }  
   notifies :request, 'windows_reboot[60]', :immediately
 end
