@@ -1,8 +1,7 @@
-require 'tailor/rake_task'
 require 'foodcritic'
 require 'rspec/core/rake_task'
 
-task :lint => [:version, :tailor, :foodcritic, :spec]
+task :lint => [:version, :foodcritic, :spec]
 task :default => [:lint]
 
 task :version do
@@ -14,8 +13,6 @@ FoodCritic::Rake::LintTask.new do |t|
     :cookbook_paths => '.',
     :search_gems => true }
 end
-
-Tailor::RakeTask.new
 
 RSpec::Core::RakeTask.new do |task|
   task.pattern = 'spec/**/*_spec.rb'
