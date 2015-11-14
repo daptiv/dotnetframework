@@ -4,7 +4,7 @@ describe 'dotnetframework::default' do
       allow_any_instance_of(Chef::Resource)
       .to receive(:registry_value_exists?)
       .with('HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full',
-        { :name=>"Version", :type=>:string, :value=>"4.5.51650" }, :machine)
+        { :name=>'Version', :type=>:string, :value=>'4.5.51650' }, :machine)
       .and_return(false)
     end
     let(:chef_run) do
@@ -23,7 +23,7 @@ describe 'dotnetframework::default' do
       allow_any_instance_of(Chef::Resource)
       .to receive(:registry_value_exists?)
       .with('HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full',
-        { :name=>"Version", :type=>:string, :value=>"4.5.51650" }, :machine)
+        { :name=>'Version', :type=>:string, :value=>'4.5.51650' }, :machine)
       .and_return(true)
     end
     let(:chef_run) do
