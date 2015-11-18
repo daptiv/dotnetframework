@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'minitest/spec'
 require 'win32/registry'
 

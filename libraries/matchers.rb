@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Author:: Shawn Neal (<sneal@sneal.net>)
 # Cookbook Name:: dotnetframework

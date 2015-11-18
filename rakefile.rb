@@ -1,17 +1,22 @@
+# encoding: UTF-8
+
 require 'foodcritic'
 require 'rspec/core/rake_task'
+require 'rubocop/rake_task'
 
-task :lint => [:version, :foodcritic, :spec]
-task :default => [:lint]
+task lint: [:version, :rubocop, :foodcritic]
+task default: [:lint, :spec]
 
 task :version do
   IO.write('version.txt', (ENV['BUILD_NUMBER'] ? "1.1.#{ENV['BUILD_NUMBER']}" : '1.1.0'))
 end
 
+RuboCop::RakeTask.new
+
 FoodCritic::Rake::LintTask.new do |t|
   t.options = {
-    :cookbook_paths => '.',
-    :search_gems => true }
+    cookbook_paths: '.',
+    search_gems: true }
 end
 
 RSpec::Core::RakeTask.new do |task|
