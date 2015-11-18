@@ -18,15 +18,7 @@
 # limitations under the License.
 #
 
-version        = node['dotnetframework']['version']
-reg_version    = node['dotnetframework'][version]['version']
-package_name   = node['dotnetframework'][version]['package_name']
-url            = node['dotnetframework'][version]['url']
-checksum       = node['dotnetframework'][version]['checksum']
-
-setup_exe      = ::File.basename(url)
-setup_log_path = win_friendly_path(File.join(Dir.tmpdir(), "#{setup_exe}.html"))
-installer_cmd  = "/q /norestart /log \"#{setup_log_path}\""
+version = node['dotnetframework']['version']
 
 dotnet4dir = File.join(ENV['WINDIR'], 'Microsoft.Net\\Framework64\\v4.0.30319')
 node.set['dotnetframework']['dir'] = dotnet4dir
@@ -36,19 +28,9 @@ windows_reboot 60 do
   action :nothing
 end
 
-windows_package package_name do
-  source url
-  checksum checksum
-  installer_type :custom
-  options installer_cmd
-  action :install
-  success_codes [0, 3010]
-  not_if {
-    registry_value_exists?(
-      'HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full',
-      { :name => 'Version', :type => :string, :value => reg_version },
-      :machine
-    )
-  }
+dotnetframework_version node['dotnetframework'][version]['version'] do
+  source node['dotnetframework'][version]['url']
+  package_name node['dotnetframework'][version]['package_name']
+  checksum node['dotnetframework'][version]['checksum']
   notifies :request, 'windows_reboot[60]', :immediately
 end
