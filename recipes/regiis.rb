@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Author:: Shawn Neal (<sneal@sneal.net>)
 # Cookbook Name:: dotnetframework
@@ -18,16 +19,17 @@
 # limitations under the License.
 #
 
-#C:\Windows\System32\inetsrv>appcmd list config /section:isapiCgiRestriction
-#<system.webServer>
-#  <security>
-#    <isapiCgiRestriction>
-#      <add path="%windir%\Microsoft.NET\Framework64\v2.0.50727\aspnet_isapi.dll" allowed="true" groupId="ASP.NET v2.0.50727" />
-#      <add path="%windir%\Microsoft.NET\Framework\v2.0.50727\aspnet_isapi.dll" allowed="true" groupId="ASP.NET v2.0.50727" />
-#    </isapiCgiRestriction>
-#  </security>
-#</system.webServer>
-
+# C:\Windows\System32\inetsrv>appcmd list config /section:isapiCgiRestriction
+# <system.webServer>
+#   <security>
+#     <isapiCgiRestriction>
+#       <add path="%windir%\Microsoft.NET\Framework64\v2.0.50727\aspnet_isapi.dll" \
+#         allowed="true" groupId="ASP.NET v2.0.50727" />
+#       <add path="%windir%\Microsoft.NET\Framework\v2.0.50727\aspnet_isapi.dll" \
+#         allowed="true" groupId="ASP.NET v2.0.50727" />
+#     </isapiCgiRestriction>
+#   </security>
+# </system.webServer>
 
 dotnet4dir = File.join(ENV['WINDIR'], 'Microsoft.Net\\Framework64\\v4.0.30319')
 aspnet_regiis_cmd = File.join(dotnet4dir, 'aspnet_regiis.exe')

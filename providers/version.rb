@@ -1,3 +1,4 @@
+# encoding: UTF-8
 #
 # Author:: Shawn Neal (<sneal@sneal.net>)
 # Cookbook Name:: dotnetframework
@@ -30,9 +31,8 @@ action :install do
     Chef::Log.info ".NET Framework #{new_resource.version} is already installed - skipping"
   else
     converge_by("Installing .NET Framework #{new_resource.version}") do
-
       setup_exe = ::File.basename(new_resource.source)
-      setup_log_path = win_friendly_path(::File.join(::Dir.tmpdir(), "#{setup_exe}.html"))
+      setup_log_path = win_friendly_path(::File.join(::Dir.tmpdir, "#{setup_exe}.html"))
 
       windows_package new_resource.package_name do
         source new_resource.source

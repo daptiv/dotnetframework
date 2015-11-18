@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 describe 'dotnetframework::default' do
   describe '.NET is not installed' do
     let(:chef_run) do

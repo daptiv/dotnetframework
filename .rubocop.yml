@@ -1,0 +1,10 @@
+AllCops:
+  Exclude:
+    - 'metadata.rb'
+    - 'Berksfile'
+
+Style/Encoding:
+  Enabled: true
+
+Metrics/LineLength:
+  Max: 100
