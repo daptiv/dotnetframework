@@ -19,12 +19,12 @@
 # limitations under the License.
 #
 
-# Use a rescue because ChefSpec fakes the platform to Windows
-begin
+# Allows the cookbook the compile without error on Linux
+if RUBY_PLATFORM =~ /mswin|mingw32|windows/
   require 'chef/win32/version'
   windows_version = Chef::ReservedNames::Win32::Version.new
   is_2012r2_or_8_1 = windows_version.windows_server_2012_r2? || windows_version.windows_8_1?
-rescue LoadError
+else
   is_2012r2_or_8_1 = true
 end
 
