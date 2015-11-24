@@ -20,15 +20,14 @@
 #
 
 include Windows::Helper
-include Windows::RegistryHelper
 
 def whyrun_supported?
   true
 end
 
 action :install do
-  if dotnet_version_is_installed?(new_resource.version)
-    Chef::Log.info ".NET Framework #{new_resource.version} is already installed - skipping"
+  if dotnet_version_or_higher_is_installed?(new_resource.version)
+    Chef::Log.info ".NET Framework #{new_resource.version} or higher is already installed"
   else
     converge_by("Installing .NET Framework #{new_resource.version}") do
       setup_exe = ::File.basename(new_resource.source)
@@ -46,7 +45,13 @@ action :install do
   end
 end
 
-def dotnet_version_is_installed?(reg_version)
-  reg_path = 'HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full'
-  Registry.key_exists?(reg_path) && Registry.get_value(reg_path, 'Version') == reg_version
+def dotnet_version_or_higher_is_installed?(expected_version)
+  reg_path = 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full'
+  require 'win32/registry'
+  ::Win32::Registry::HKEY_LOCAL_MACHINE.open(reg_path) do |reg|
+    reg_version = reg['Version']
+    return Gem::Version.new(reg_version) >= Gem::Version.new(expected_version)
+  end
+rescue ::Win32::Registry::Error
+  false
 end
