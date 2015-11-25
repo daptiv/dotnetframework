@@ -15,10 +15,24 @@ class TestDotNet4Install < MiniTest::Chef::TestCase
   # http://support.microsoft.com/kb/318785
   # https://msdn.microsoft.com/en-us/library/hh925568(v=vs.110).aspx
   def test_framework_version
+    expected_version = expected_dotnet_version
+    reg_version = installed_dotnet_version
+    flunk('Could not find a .NET version in the registry') unless reg_version
+    assert(Gem::Version.new(reg_version) >= Gem::Version.new(expected_version),
+      "Expected .NET version #{expected_version} or higher, but only found #{reg_version}")
+  end
+
+  def expected_dotnet_version
     major_version = node['dotnetframework']['version']
+    node['dotnetframework'][major_version]['version']
+  end
+
+  def installed_dotnet_version
     path = 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full'
     Win32::Registry::HKEY_LOCAL_MACHINE.open(path) do |reg|
-      assert reg['Version'] == node['dotnetframework'][major_version]['version'], reg['Version']
+      return reg['Version']
     end
+  rescue ::Win32::Registry::Error
+    return nil
   end
 end
