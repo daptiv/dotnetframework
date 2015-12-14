@@ -23,7 +23,7 @@ the specified .NET framework version.
 ## default
 
 * `node['dotnetframework']['version']` - defaults to '4.5.2' Acceptable values:
-'4.0', '4.5', '4.5.1', '4.5.2', '4.6'.
+'4.0', '4.5', '4.5.1', '4.5.2', '4.6', '4.6.1'.
 
 # Recipes
 

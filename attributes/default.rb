@@ -29,7 +29,7 @@ else
 end
 
 # Override to install different .NET versions
-# 4.0, 4.5, 4.5.1, 4.5.2, 4.6
+# 4.0, 4.5, 4.5.1, 4.5.2, 4.6, 4.6.1
 default['dotnetframework']['version'] = '4.5.2'
 
 # .NET 4.0
@@ -84,3 +84,12 @@ default['dotnetframework']['4.6']['checksum'] =
 default['dotnetframework']['4.6']['url'] = 'http://download.microsoft.com/download/C/3/A/' \
                                            'C3A5200B-D33C-47E9-9D70-2F7C65DAAD94/' \
                                            'NDP46-KB3045557-x86-x64-AllOS-ENU.exe'
+
+# .NET 4.6.1
+default['dotnetframework']['4.6.1']['package_name'] = 'Microsoft .NET Framework 4.6.1'
+default['dotnetframework']['4.6.1']['version'] = '4.6.01055'
+default['dotnetframework']['4.6.1']['checksum'] =
+  'beaa901e07347d056efe04e8961d5546c7518fab9246892178505a7ba631c301'
+default['dotnetframework']['4.6.1']['url'] = 'http://download.microsoft.com/download/E/4/1/' \
+                                           'E4173890-A24A-4936-9FC9-AF930FE3FA40/' \
+                                           'NDP461-KB3102436-x86-x64-AllOS-ENU.exe'
