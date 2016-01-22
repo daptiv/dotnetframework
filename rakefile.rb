@@ -8,7 +8,7 @@ task lint: [:version, :rubocop, :foodcritic]
 task default: [:lint, :spec]
 
 task :version do
-  IO.write('version.txt', (ENV['BUILD_NUMBER'] ? "1.1.#{ENV['BUILD_NUMBER']}" : '1.1.0'))
+  IO.write('version.txt', (ENV['BUILD_NUMBER'] ? "1.2.#{ENV['BUILD_NUMBER']}" : '1.2.0'))
 end
 
 RuboCop::RakeTask.new
