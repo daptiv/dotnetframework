@@ -87,7 +87,7 @@ default['dotnetframework']['4.6']['url'] = 'http://download.microsoft.com/downlo
 
 # .NET 4.6.1
 default['dotnetframework']['4.6.1']['package_name'] = 'Microsoft .NET Framework 4.6.1'
-default['dotnetframework']['4.6.1']['version'] = '4.6.01055'
+default['dotnetframework']['4.6.1']['version'] = '4.6.01038'
 default['dotnetframework']['4.6.1']['checksum'] =
   'beaa901e07347d056efe04e8961d5546c7518fab9246892178505a7ba631c301'
 default['dotnetframework']['4.6.1']['url'] = 'http://download.microsoft.com/download/E/4/1/' \
