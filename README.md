@@ -11,7 +11,7 @@ installer.
 * Windows 2008
 * Windows 2008 R2
 * Windows 2012
-* Windows 2008 R2
+* Windows 2012 R2
 
 # Usage
 
