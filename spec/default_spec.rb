@@ -10,7 +10,7 @@ describe 'dotnetframework::default' do
     end
     it 'should notify windows_reboot resource' do
       win_pkg = chef_run.dotnetframework_version('4.5.51650')
-      expect(win_pkg).to notify('windows_reboot[60]').to(:request).immediately
+      expect(win_pkg).to notify('reboot[dotnetframework_install]').to(:request_reboot).immediately
     end
   end
 end
