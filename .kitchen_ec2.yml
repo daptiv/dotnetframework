@@ -1,0 +1,43 @@
+---
+driver:
+  name: ec2
+  tags: {
+    "Name": <%= ENV['COOKBOOK'] %>
+  }
+  aws_ssh_key_id: <%= ENV['EC2_SSH_KEY_ID'] %>
+  region: <%= ENV['EC2_REGION'] %>
+  availability_zone: <%= ENV['EC2_AZ'] %>
+  subnet_id: <%= ENV['EC2_SUBNET_ID'] %>
+  instance_type: <%= ENV['EC2_INSTANCE_TYPE'] %>
+  image_id: <%= ENV['EC2_AMI'] %>
+  security_group_ids: [<%= ENV['EC2_SG'] %>]
+  retryable_tries: 120
+  block_device_mappings:
+    - device_name: /dev/sda1
+      ebs:
+        delete_on_termination: true
+    - device_name: /dev/sdf
+      ebs:
+        delete_on_termination: true
+
+provisioner:
+  name: chef_zero
+
+transport:
+  name: winrm
+  username: <%= ENV['WIN_USER'] %>
+  password: <%= ENV['WIN_PASS'] %>
+
+platforms:
+  - name: windows-Packer_Webserver_Gold
+
+suites:
+  - name: <%= ENV['COOKBOOK'] %>
+    data_bags_path: <%= ENV['CHEF_DATA_BAGS'] %>
+    encrypted_data_bag_secret_key_path: <%= ENV['CHEF_SECRET_FILE'] %>
+    run_list:
+      - recipe[<%= ENV['COOKBOOK'] %>::default]
+      - recipe[minitest-handler]
+    attributes:
+      daptiv_site:
+        version: <%= ENV['LATEST_PPM_PACKAGE'] %>
