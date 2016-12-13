@@ -99,10 +99,21 @@ default['dotnetframework']['4.6']['url'] =
 # .NET 4.6.1
 default['dotnetframework']['4.6.1']['package_name'] =
   'Microsoft .NET Framework 4.6.1'
-default['dotnetframework']['4.6.1']['version'] = '4.6.01055'
+default['dotnetframework']['4.6.1']['version'] = '4.6.01038'
 default['dotnetframework']['4.6.1']['checksum'] =
   'beaa901e07347d056efe04e8961d5546c7518fab9246892178505a7ba631c301'
 default['dotnetframework']['4.6.1']['url'] =
   'http://download.microsoft.com/download/E/4/1/' \
   'E4173890-A24A-4936-9FC9-AF930FE3FA40/' \
   'NDP461-KB3102436-x86-x64-AllOS-ENU.exe'
+
+# .NET 4.6.2
+default['dotnetframework']['4.6.2']['package_name'] =
+  'Microsoft .NET Framework 4.6.2'
+default['dotnetframework']['4.6.2']['version'] = '4.6.01590'
+default['dotnetframework']['4.6.2']['checksum'] =
+  '28886593e3b32f018241a4c0b745e564526dbb3295cb2635944e3a393f4278d4'
+default['dotnetframework']['4.6.2']['url'] =
+  'https://download.microsoft.com/download/F/9/4/' \
+  'F942F07D-F26F-4F30-B4E3-EBD54FABA377/' \
+  'NDP462-KB3151800-x86-x64-AllOS-ENU.exe'
