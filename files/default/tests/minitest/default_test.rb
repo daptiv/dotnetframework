@@ -18,8 +18,11 @@ class TestDotNet4Install < MiniTest::Chef::TestCase
     expected_version = expected_dotnet_version
     reg_version = installed_dotnet_version
     flunk('Could not find a .NET version in the registry') unless reg_version
-    assert(Gem::Version.new(reg_version) >= Gem::Version.new(expected_version),
-      "Expected .NET version #{expected_version} or higher, but only found #{reg_version}")
+    assert(
+      Gem::Version.new(reg_version) >= Gem::Version.new(expected_version),
+      "Expected .NET version #{expected_version} or higher, " \
+      "but only found #{reg_version}"
+    )
   end
 
   def expected_dotnet_version

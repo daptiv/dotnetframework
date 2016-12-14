@@ -1,4 +1,3 @@
-# encoding: UTF-8
 #
 # Author:: Shawn Neal (<sneal@sneal.net>)
 # Cookbook Name:: dotnetframework
@@ -25,15 +24,20 @@ def whyrun_supported?
   true
 end
 
+use_inline_resources
+
 action :install do
   if dotnet_version_or_higher_is_installed?(new_resource.version)
-    Chef::Log.info ".NET Framework #{new_resource.version} or higher is already installed"
+    Chef::Log.info(
+      ".NET Framework #{new_resource.version} or higher is already installed"
+    )
   else
     converge_by("Installing .NET Framework #{new_resource.version}") do
       setup_exe = ::File.basename(new_resource.source)
-      setup_log_path = win_friendly_path(::File.join(::Dir.tmpdir, "#{setup_exe}.html"))
+      setup_log_path =
+        win_friendly_path(::File.join(::Dir.tmpdir, "#{setup_exe}.html"))
 
-      windows_package new_resource.package_name do
+      windows_package new_resource.package_name do # ~FC009
         source new_resource.source
         checksum new_resource.checksum
         installer_type :custom

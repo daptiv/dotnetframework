@@ -1,0 +1,35 @@
+# How to use this file:
+# export COOKBOOK=${PWD##*/} && docker-compose run --rm test chef exec rake
+
+version: '2'
+services:
+  test:
+    image: heathsnow/docker_chef_workstation
+    volumes:
+      - $PWD:/${COOKBOOK}
+      - ${CHEF_CONFIG_DIR}:/root/.chef
+      - ${CHEF_REPO_DIR}:/chef-repo
+      - ${AWS_CRED_DIR}:/root/.aws
+    working_dir: /${COOKBOOK}
+    network_mode: "host"
+    environment:
+      COOKBOOK: ${COOKBOOK}
+      EC2_SSH_KEY_ID: ${EC2_SSH_KEY_ID}
+      EC2_REGION: ${EC2_REGION}
+      EC2_AZ: ${EC2_AZ}
+      EC2_SUBNET_ID: ${EC2_SUBNET_ID}
+      EC2_INSTANCE_TYPE: ${EC2_INSTANCE_TYPE}
+      EC2_AMI: ${EC2_AMI}
+      EC2_SG: ${EC2_SG}
+      LATEST_PPM_PACKAGE: ${LATEST_PPM_PACKAGE}
+      CHEF_DATA_BAGS: /chef-repo/data_bags
+      CHEF_SECRET_FILE: /root/.chef/${CHEF_SECRET_FILE}
+      KITCHEN_YAML: ".kitchen_ec2.yml"
+      KNIFE_HOME: /root/.chef
+      WIN_USER: ${WIN_USER}
+      WIN_PASS: ${WIN_PASS}
+    command: |
+      bash -c 'bash -s <<EOF
+      echo "Please enter the command to execute:"
+      echo "Ex: docker-compose run --rm test chef exec bundle install"
+      EOF'

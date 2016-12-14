@@ -1,26 +1,31 @@
-# encoding: UTF-8
+begin
+  gem 'minitest-chef-handler'
+rescue Gem::LoadError
+  sh 'chef gem install minitest-chef-handler'
+end
 
-require 'foodcritic'
-require 'rspec/core/rake_task'
-require 'rubocop/rake_task'
-
-task lint: [:version, :rubocop, :foodcritic]
-task default: [:lint, :spec]
+task default: [:version, :rubocop, :foodcritic, :spec, :kitchen]
+task nokitchen: [:version, :rubocop, :foodcritic, :spec]
 
 task :version do
-  IO.write('version.txt', (ENV['BUILD_NUMBER'] ? "1.2.#{ENV['BUILD_NUMBER']}" : '1.2.0'))
+  version = ENV['BUILD_NUMBER'] ? "1.2.#{ENV['BUILD_NUMBER']}" : '1.2.0'
+  IO.write('version.txt', version)
 end
 
-RuboCop::RakeTask.new
-
-FoodCritic::Rake::LintTask.new do |t|
-  t.options = {
-    cookbook_paths: '.',
-    search_gems: true }
+task :foodcritic do
+  sh 'chef exec foodcritic . -G -f any'
 end
 
-RSpec::Core::RakeTask.new do |task|
-  task.pattern = 'spec/**/*_spec.rb'
-  task.rspec_opts = ['--color', '-f documentation']
-  task.rspec_opts << '-tunit'
+task :rubocop do
+  sh 'chef exec rubocop'
+end
+
+task :spec do
+  cmd = 'chef exec rspec --color -f documentation '
+  cmd += '-tunit --pattern "spec/**/*_spec.rb"'
+  sh cmd.to_s
+end
+
+task :kitchen do
+  sh 'chef exec kitchen test -c'
 end
