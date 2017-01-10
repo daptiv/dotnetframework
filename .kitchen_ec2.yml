@@ -9,7 +9,8 @@ driver:
   availability_zone: <%= ENV['EC2_AZ'] %>
   subnet_id: <%= ENV['EC2_SUBNET_ID'] %>
   instance_type: <%= ENV['EC2_INSTANCE_TYPE'] %>
-  image_id: <%= ENV['EC2_AMI'] %>
+  image_search:
+    "name": <%= ENV['EC2_IMAGE_NAME'] %>
   security_group_ids: [<%= ENV['EC2_SG'] %>]
   retryable_tries: 120
   block_device_mappings:
