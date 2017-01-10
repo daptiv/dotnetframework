@@ -19,7 +19,7 @@ services:
       EC2_AZ: ${EC2_AZ}
       EC2_SUBNET_ID: ${EC2_SUBNET_ID}
       EC2_INSTANCE_TYPE: ${EC2_INSTANCE_TYPE}
-      EC2_AMI: ${EC2_AMI}
+      EC2_IMAGE_NAME: ${EC2_IMAGE_NAME}
       EC2_SG: ${EC2_SG}
       LATEST_PPM_PACKAGE: ${LATEST_PPM_PACKAGE}
       CHEF_DATA_BAGS: /chef-repo/data_bags
