@@ -4,16 +4,20 @@
 version: '2'
 services:
   test:
-    image: heathsnow/docker_chef_workstation
+    image: ${CHEF_IMAGE}
     volumes:
       - $PWD:/${COOKBOOK}
       - ${CHEF_CONFIG_DIR}:/root/.chef
       - ${CHEF_REPO_DIR}:/chef-repo
       - ${AWS_CRED_DIR}:/root/.aws
+      - ${BERKSHELF_PATH}:/root/.berkshelf
     working_dir: /${COOKBOOK}
     network_mode: "host"
     environment:
       COOKBOOK: ${COOKBOOK}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      EC2_ROLE_ARN: ${EC2_ROLE_ARN}
       EC2_SSH_KEY_ID: ${EC2_SSH_KEY_ID}
       EC2_REGION: ${EC2_REGION}
       EC2_AZ: ${EC2_AZ}
