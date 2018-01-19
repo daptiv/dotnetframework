@@ -37,7 +37,7 @@ action :install do
       setup_log_path =
         win_friendly_path(::File.join(::Dir.tmpdir, "#{setup_exe}.html"))
 
-      windows_package new_resource.package_name do # ~FC009
+      windows_package "package_#{new_resource.package_name}" do # ~FC009
         source new_resource.source
         checksum new_resource.checksum
         installer_type :custom
