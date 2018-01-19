@@ -47,7 +47,7 @@ action :install do
         not_if new_resource.scheduled_task_install
       end
 
-     scheduled_task_application_install new_resource.package_name do
+      scheduled_task_application_install new_resource.package_name do
         user new_resource.scheduled_task_user
         password new_resource.scheduled_task_password
         app_name new_resource.package_name
