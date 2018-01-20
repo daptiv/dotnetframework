@@ -33,3 +33,21 @@ attribute :package_name, kind_of: String, required: true
 
 # The source ISO SHA256 checksum
 attribute :checksum, kind_of: String
+
+# Whether or not to install via a scheduled task
+attribute :scheduled_task_install,
+          kind_of: [TrueClass, FalseClass],
+          required: false,
+          default: node['dotnetframework']['scheduled_task_install']
+
+# User for scheduled task
+attribute :scheduled_task_user,
+          kind_of: String,
+          required: false,
+          default: node['dotnetframework']['scheduled_task_user']
+
+# Password for scheduled task
+attribute :scheduled_task_password,
+          kind_of: String,
+          required: false,
+          default: node['dotnetframework']['scheduled_task_password']

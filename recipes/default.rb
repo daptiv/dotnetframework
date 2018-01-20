@@ -33,5 +33,8 @@ dotnetframework_version node['dotnetframework'][version]['version'] do
   source node['dotnetframework'][version]['url']
   package_name node['dotnetframework'][version]['package_name']
   checksum node['dotnetframework'][version]['checksum']
+  scheduled_task_install node['dotnetframework']['scheduled_task_install']
+  scheduled_task_user node['dotnetframework']['scheduled_task_user']
+  scheduled_task_password node['dotnetframework']['scheduled_task_password']
   notifies :request_reboot, 'reboot[dotnetframework_install]', :immediately
 end

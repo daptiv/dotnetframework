@@ -37,13 +37,23 @@ action :install do
       setup_log_path =
         win_friendly_path(::File.join(::Dir.tmpdir, "#{setup_exe}.html"))
 
-      windows_package new_resource.package_name do # ~FC009
+      windows_package "package_#{new_resource.package_name}" do # ~FC009
         source new_resource.source
         checksum new_resource.checksum
         installer_type :custom
         options "/q /norestart /log \"#{setup_log_path}\""
         action :install
         success_codes [0, 3010]
+        not_if new_resource.scheduled_task_install
+      end
+
+      scheduled_task_application_install "task_#{new_resource.package_name}" do
+        user new_resource.scheduled_task_user
+        password new_resource.scheduled_task_password
+        app_name new_resource.package_name
+        app_url new_resource.source
+        app_arguments "/q /norestart /log \"#{setup_log_path}\""
+        only_if new_resource.scheduled_task_install
       end
     end
   end
