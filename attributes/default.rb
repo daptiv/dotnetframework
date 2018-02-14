@@ -29,12 +29,8 @@ else
   is_2012r2_or_8_1 = true
 end
 
-default['dotnetframework']['scheduled_task_install'] = false
-default['dotnetframework']['scheduled_task_user'] = ''
-default['dotnetframework']['scheduled_task_password'] = ''
-
 # Override to install different .NET versions
-# 4.0, 4.5, 4.5.1, 4.5.2, 4.6, 4.6.1, 4.6.2
+# 4.0, 4.5, 4.5.1, 4.5.2, 4.6, 4.6.1
 default['dotnetframework']['version'] = '4.5.2'
 
 # .NET 4.0
