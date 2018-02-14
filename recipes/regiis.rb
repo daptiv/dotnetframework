@@ -17,7 +17,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# rubocop:disable Metrics/LineLength
+# rubocop:disable Method/LineLength
 # C:\Windows\System32\inetsrv>appcmd list config /section:isapiCgiRestriction
 # <system.webServer>
 #   <security>
