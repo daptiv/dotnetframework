@@ -1,9 +1,9 @@
 #
-# Author:: Shawn Neal (<sneal@sneal.net>)
+# Author:: Daptiv Engineering (<cpc_sea_teamengineering@changepoint.com>)
 # Cookbook Name:: dotnetframework
 # Recipe:: regiis
 #
-# Copyright:: Copyright (c) 2013 Daptiv Solutions LLC.
+# Copyright:: Copyright (c) 2018 Changepoint
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
