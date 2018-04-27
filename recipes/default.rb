@@ -22,7 +22,7 @@
 version = node['dotnetframework']['version']
 
 dotnet4dir = File.join(ENV['WINDIR'], 'Microsoft.Net\\Framework64\\v4.0.30319')
-node.set['dotnetframework']['dir'] = dotnet4dir
+node.override['dotnetframework']['dir'] = dotnet4dir
 
 reboot 'dotnetframework_install' do
   reason 'dotnetframework requires a reboot to complete'
