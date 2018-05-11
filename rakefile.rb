@@ -4,7 +4,7 @@ task nokitchen: %i[version rubocop foodcritic spec]
 
 desc 'Set cookbook version.'
 task :version do
-  version = ENV['BUILD_NUMBER'] ? "1.2.#{ENV['BUILD_NUMBER']}" : '0.0.1'
+  version = ENV['BUILD_NUMBER'] ? "1.3.#{ENV['BUILD_NUMBER']}" : '1.3.0'
   IO.write('version.txt', version)
 end
 
