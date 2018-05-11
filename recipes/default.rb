@@ -1,10 +1,10 @@
 # encoding: UTF-8
-#
-# Author:: Shawn Neal (<sneal@sneal.net>)
+
+# Author:: Daptiv Engineering (<cpc_sea_teamengineering@changepoint.com>)
 # Cookbook Name:: dotnetframework
 # Recipe:: default
 #
-# Copyright:: Copyright (c) 2013 Daptiv Solutions LLC.
+# Copyright:: Copyright (c) 2018 Changepoint
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -22,7 +22,7 @@
 version = node['dotnetframework']['version']
 
 dotnet4dir = File.join(ENV['WINDIR'], 'Microsoft.Net\\Framework64\\v4.0.30319')
-node.set['dotnetframework']['dir'] = dotnet4dir
+node.default['dotnetframework']['dir'] = dotnet4dir
 
 reboot 'dotnetframework_install' do
   reason 'dotnetframework requires a reboot to complete'

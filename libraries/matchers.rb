@@ -1,9 +1,9 @@
 # encoding: UTF-8
-#
-# Author:: Shawn Neal (<sneal@sneal.net>)
+
+# Author:: Daptiv Engineering (<cpc_sea_teamengineering@changepoint.com>)
 # Cookbook Name:: dotnetframework
 #
-# Copyright 2015, Shawn Neal
+# Copyright 2018 Changepoint
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.

@@ -1,6 +1,7 @@
 ---
 driver:
   name: ec2
+  require_chef_omnibus: <%= ENV['REQUIRE_CHEF_OMNIBUS'] %>
   tags: {
     "Name": <%= ENV['COOKBOOK'] %>
   }
@@ -13,17 +14,6 @@ driver:
     "name": <%= ENV['EC2_IMAGE_NAME'] %>
   security_group_ids: [<%= ENV['EC2_SG'] %>]
   retryable_tries: 120
-  block_device_mappings:
-    - device_name: /dev/sda1
-      ebs:
-        volume_type: standard
-        volume_size: 40
-        delete_on_termination: true
-    - device_name: /dev/sdf
-      ebs:
-        volume_type: standard
-        volume_size: 20
-        delete_on_termination: true
 
 provisioner:
   name: chef_zero
