@@ -2,7 +2,7 @@
 
 This file is used to list changes made in each version of dotnetframework.
 
-## 1.3.0
+## 2.0.0
 - ChefDK 2.5.3 rubocop and foodcritic updates
 - Remove `node.set` for Chef 13 compatiblity
 
