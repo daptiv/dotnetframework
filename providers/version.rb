@@ -43,7 +43,7 @@ action :install do
         installer_type :custom
         options "/q /norestart /log \"#{setup_log_path}\""
         action :install
-        success_codes [0, 3010]
+        returns [0, 3010]
       end
     end
   end
